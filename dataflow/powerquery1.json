@@ -1,0 +1,20 @@
+{
+	"name": "powerquery1",
+	"properties": {
+		"type": "WranglingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"name": "DelimitedText3",
+					"script": "source(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~>  DelimitedText3",
+					"dataset": {
+						"referenceName": "DelimitedText3",
+						"type": "DatasetReference"
+					}
+				}
+			],
+			"script": "section Section1;\r\nshared DelimitedText3 = let AdfDoc = AzureStorage.BlobContents(\"https://newsapistorage.blob.core.windows.net/newsapicontainer/Newsapi_output (5).csv\"),Csv = Csv.Document(AdfDoc, [Delimiter = \",\", Encoding = TextEncoding.Utf8, QuoteStyle = QuoteStyle.Csv]), PromotedHeaders = Table.PromoteHeaders(Csv, [PromoteAllScalars = true]) in  PromotedHeaders;\r\nshared UserQuery = let Source = #\"DelimitedText3\",\r\n  #\"Split column by delimiter\" = Table.SplitColumn(Source, \"source\", Splitter.SplitTextByDelimiter(\",\"), {\"source.1\", \"source.2\"}),\r\n  #\"Removed columns\" = Table.RemoveColumns(#\"Split column by delimiter\", {\"source.1\"}),\r\n  #\"Split column by delimiter 1\" = Table.SplitColumn(#\"Removed columns\", \"source.2\", Splitter.SplitTextByDelimiter(\": '\"), {\"source.3\", \"source.4\"}),\r\n  #\"Removed columns 1\" = Table.RemoveColumns(#\"Split column by delimiter 1\", {\"source.3\"}),\r\n  #\"Replaced value\" = Table.ReplaceValue(#\"Removed columns 1\", \"'}\", \"\", Replacer.ReplaceText, {\"source.4\"}),\r\n  #\"Changed column type\" = Table.TransformColumnTypes(#\"Replaced value\", {{\"publishedAt\", type datetime}}) in #\"Changed column type\";\r\n",
+			"documentLocale": "en-us"
+		}
+	}
+}
