@@ -4,7 +4,7 @@
 		"annotations": [],
 		"type": "HttpServer",
 		"typeProperties": {
-			"url": "https://raw.githubusercontent.com/BijenShah/ScrumConnect/main/Newsapi_output.csv?token=GHSAT0AAAAAAB566OGL42NRONKP6VO3XHQGY6SWTQQ",
+			"url": "https://raw.githubusercontent.com/BijenShah/ScrumConnect/main/Newsapi_output.csv?token=GHSAT0AAAAAAB566OGK5ECQMU55L3TLREFUY6SW3MQ",
 			"enableServerCertificateValidation": true,
 			"authenticationType": "Anonymous"
 		}
