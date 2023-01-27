@@ -1,5 +1,5 @@
 {
-	"name": "DelimitedText3",
+	"name": "topheadlinesout",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureBlobStorage2",
