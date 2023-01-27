@@ -9,5 +9,4 @@ Solution:
 Limitations: There were some limitations to my Azure account.
               To run the python code as a Batch inside ADF pipeline, hence the code was run for pilot testing on Google Colab.
               
-Doubts/Improvements: The purpose of the data could be understood to better clean and transform the data.
-                     Azure Data Flow or some other ETL tool as per the purpose could be utilised for transformation.
+Doubts/Improvements: The data is cleaned and some columns are split for better understanding
