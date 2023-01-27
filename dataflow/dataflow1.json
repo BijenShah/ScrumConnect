@@ -12,12 +12,61 @@
 					"name": "source1"
 				}
 			],
-			"sinks": [],
-			"transformations": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DelimitedText3",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "derivedColumn1"
+				},
+				{
+					"name": "select1"
+				}
+			],
 			"scriptLines": [
-				"source(allowSchemaDrift: true,",
+				"source(output(",
+				"          source as string,",
+				"          author as string,",
+				"          title as string,",
+				"          description as string,",
+				"          url as string,",
+				"          urlToImage as string,",
+				"          publishedAt as date,",
+				"          content as string",
+				"     ),",
+				"     allowSchemaDrift: false,",
+				"     validateSchema: true,",
+				"     ignoreNoFilesFound: false,",
+				"     multiLineRow: true) ~> source1",
+				"source1 derive({Source Name} = split(trim(split(split(source, \",\")[2],\":\")[2],\"}\"),\"'\")[2],",
+				"          {Source ID} = split(trim(split(split(source, \",\")[1],\":\")[2],\"}\"),\"'\")[2],",
+				"          Content = substring(split(content, \"[\")[1],0,length(split(content, \"[\")[1])-2),",
+				"          {Content Extras} = trim(split(content, \"[\")[2],\"]\")) ~> derivedColumn1",
+				"derivedColumn1 select(mapColumn(",
+				"          {Source ID},",
+				"          {Source Name},",
+				"          Author = author,",
+				"          Title = title,",
+				"          Description = description,",
+				"          Url = url,",
+				"          UrlToImage = urlToImage,",
+				"          PublishedAt = publishedAt,",
+				"          Content = derivedColumn1@Content,",
+				"          {Content Extras}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select1",
+				"select1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> source1"
+				"     truncate: true,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1"
 			]
 		}
 	}

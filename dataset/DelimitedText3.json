@@ -2,7 +2,7 @@
 	"name": "DelimitedText3",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "AzureBlobStorage1",
+			"referenceName": "AzureBlobStorage2",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
@@ -10,47 +10,12 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "Newsapi_output (5).csv",
-				"container": "newsapicontainer"
+				"container": "newsapiout"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
-			"firstRowAsHeader": true,
 			"quoteChar": "\""
 		},
-		"schema": [
-			{
-				"name": "source",
-				"type": "String"
-			},
-			{
-				"name": "author",
-				"type": "String"
-			},
-			{
-				"name": "title",
-				"type": "String"
-			},
-			{
-				"name": "description",
-				"type": "String"
-			},
-			{
-				"name": "url",
-				"type": "String"
-			},
-			{
-				"name": "urlToImage",
-				"type": "String"
-			},
-			{
-				"name": "publishedAt",
-				"type": "String"
-			},
-			{
-				"name": "content",
-				"type": "String"
-			}
-		]
+		"schema": []
 	}
 }
